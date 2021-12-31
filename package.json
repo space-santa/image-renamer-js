@@ -1,6 +1,7 @@
 {
   "name": "image-renamer-js",
   "version": "0.0.0",
+  "license": "Apache-2.0",
   "scripts": {
     "start:electron": "ng build --base-href ./ && electron main.js",
     "ng": "ng",
