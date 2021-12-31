@@ -2,6 +2,7 @@
   "name": "image-renamer-js",
   "version": "0.0.0",
   "scripts": {
+    "start:electron": "ng build --base-href ./ && electron main.js",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -28,6 +29,7 @@
     "@angular/compiler-cli": "~13.1.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "electron": "^16.0.5",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
