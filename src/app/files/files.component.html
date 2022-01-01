@@ -1,1 +1,10 @@
-<p>files works!</p>
+<table>
+  <th>Current Name</th>
+  <th></th>
+  <th>New Name</th>
+  <tr *ngFor="let file of files">
+    <td>{{ file.file.name }}</td>
+    <td>➡</td>
+    <td>{{ file.timestamp }}</td>
+  </tr>
+</table>

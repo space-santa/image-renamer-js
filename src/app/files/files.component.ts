@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import exifr from 'exifr';
+import { TaggedFile } from './tagged-file';
 
 @Component({
   selector: 'app-files',
@@ -6,7 +8,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./files.component.css'],
 })
 export class FilesComponent implements OnInit {
-  constructor() {}
+  files: TaggedFile[] = [];
 
   @HostListener('dragover', ['$event'])
   onDragOver(ev: any) {
@@ -16,12 +18,16 @@ export class FilesComponent implements OnInit {
   @HostListener('drop', ['$event'])
   onDrop(ev: any) {
     ev.preventDefault();
-    console.log(ev.dataTransfer.files[0]);
+    const files = ev.dataTransfer.files;
 
-    for (const file of ev.dataTransfer.files) {
-      console.log(file.name, file.path);
+    for (const file of files) {
+      exifr.parse(file).then((output) => {
+        this.files.push({ file: file, timestamp: output.DateTimeOriginal });
+      });
     }
   }
+
+  constructor() {}
 
   ngOnInit(): void {}
 }
