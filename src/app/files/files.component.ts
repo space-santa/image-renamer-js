@@ -25,7 +25,7 @@ export class FilesComponent implements OnInit {
       exifr.parse(file).then((output) => {
         this.files.push({
           file: file,
-          timestamp: formatDate(output.DateTimeOriginal),
+          newName: formatDate(output.DateTimeOriginal),
         });
       });
     }
