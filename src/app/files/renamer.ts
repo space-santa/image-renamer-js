@@ -1,9 +1,12 @@
-export function formatDate(date: Date) {
-  return `${date.getFullYear()}-${zeroPad(date.getMonth() + 1)}-${zeroPad(
-    date.getDate()
-  )}_${zeroPad(date.getHours())}.${zeroPad(date.getMinutes())}.${zeroPad(
-    date.getSeconds()
-  )}`;
+export function formatDate(date: Date): string {
+  const YYYY = date.getFullYear();
+  const MM = zeroPad(date.getMonth() + 1);
+  const DD = zeroPad(date.getDate());
+  const hh = zeroPad(date.getHours());
+  const mm = zeroPad(date.getMinutes());
+  const ss = zeroPad(date.getSeconds());
+
+  return `${YYYY}-${MM}-${DD}_${hh}.${mm}.${ss}`;
 }
 
 function zeroPad(value: number): string {
