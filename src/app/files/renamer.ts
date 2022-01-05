@@ -1,9 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-export function rename(dirPath: string, oldName: string, newName: string) {
+export function rename(file: any, newName: string) {
+  const dirPath = path.dirname(file.path);
+
   fs.rename(
-    path.join(dirPath, oldName),
+    path.join(dirPath, file.name),
     path.join(dirPath, newName),
     function (error) {
       if (error) {
