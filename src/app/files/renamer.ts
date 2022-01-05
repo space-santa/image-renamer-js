@@ -46,7 +46,7 @@ function zeroPad(value: number): string {
   return `0${value}`.slice(-2);
 }
 
-function parseDateFromString(name: string): string {
+export function parseDateFromString(name: string): string {
   for (const pattern of patterns) {
     if (pattern && pattern.pattern.test(name)) {
       return dateBitsToString(pattern.func(name));
@@ -95,14 +95,21 @@ const patterns = [
       const amPmBits = extraBits[0];
       const extension = extraBits[1];
 
+      var hour = parseInt(timeBits[0]);
+
+      if (amPmBits.toLowerCase() == 'pm') {
+        hour = hour + 12;
+
+        if (hour === 24) {
+          hour = 0;
+        }
+      }
+
       return {
         year: dateBits[2],
         month: zeroPad(parseInt(dateBits[1])),
         day: zeroPad(parseInt(dateBits[0])),
-        hour:
-          amPmBits.toLowerCase() === 'am'
-            ? zeroPad(parseInt(timeBits[0]))
-            : zeroPad(parseInt(timeBits[0]) + 12),
+        hour: zeroPad(hour),
         minute: zeroPad(parseInt(timeBits[1])),
         second: zeroPad(parseInt(timeBits[2])),
         extension: extension,
