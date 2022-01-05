@@ -1,3 +1,18 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
+export function rename(dirPath: string, oldName: string, newName: string) {
+  fs.rename(
+    path.join(dirPath, oldName),
+    path.join(dirPath, newName),
+    function (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  );
+}
+
 export function formatDate(date: Date): string {
   const YYYY = date.getFullYear();
   const MM = zeroPad(date.getMonth() + 1);
