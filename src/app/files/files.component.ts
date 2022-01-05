@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import exifr from 'exifr';
 import { TaggedFile } from './tagged-file';
-import { formatDate, rename } from './renamer';
+import { formatDate, rename, findNewName } from './renamer';
 
 @Component({
   selector: 'app-files',
@@ -23,10 +23,10 @@ export class FilesComponent implements OnInit {
     console.log(ev.dataTransfer.files[0]);
 
     for (const file of files) {
-      exifr.parse(file).then((output: any) => {
+      findNewName(file).then((newName: string) => {
         this.files.push({
           file: file,
-          newName: `${formatDate(output.DateTimeOriginal)}.jpg`,
+          newName: newName,
         });
       });
     }
