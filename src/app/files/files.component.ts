@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import exifr from 'exifr';
 import { TaggedFile } from './tagged-file';
-import { formatDate, rename, findNewName } from './renamer';
+import { rename, findNewName } from './renamer';
 
 @Component({
   selector: 'app-files',
