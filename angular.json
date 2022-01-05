@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@space-santa/electron-builder:build",
           "options": {
             "outputPath": "dist/image-renamer-js",
             "index": "src/index.html",
@@ -60,7 +60,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@space-santa/electron-builder:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "image-renamer-js:build:production"
@@ -78,7 +78,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@space-santa/electron-builder:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",

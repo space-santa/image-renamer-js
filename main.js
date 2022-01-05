@@ -3,6 +3,11 @@ const path = require("path");
 
 function createWindow() {
   const win = new BrowserWindow({
+    // the webPreferences hack is necessary because of this: https://github.com/webpack/webpack/issues/10035#issuecomment-864497801
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
     width: 800,
     height: 600,
   });
