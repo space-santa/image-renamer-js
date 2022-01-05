@@ -85,16 +85,27 @@ const patterns = [
     },
   },
   {
-    pattern: /MTGA \d_\d\d_\d\d\d\d \d_\d\d_\d\d (am|pm|AM|PM).(png|mp4)$/,
+    pattern:
+      /MTGA \d\d?_\d\d?_\d\d\d\d \d\d?_\d\d?_\d\d? (am|pm|AM|PM).(png|mp4)$/,
     func: (name: string): DateBits => {
+      const largeBits = name.split(' ');
+      const dateBits = largeBits[1].split('_');
+      const timeBits = largeBits[2].split('_');
+      const extraBits = largeBits[3].split('.');
+      const amPmBits = extraBits[0];
+      const extension = extraBits[1];
+
       return {
-        year: name.substring(0, 4),
-        month: name.substring(6, 7),
-        day: name.substring(9, 10),
-        hour: name.substring(12, 13),
-        minute: name.substring(15, 16),
-        second: name.substring(18, 19),
-        extension: name.substring(21, 23),
+        year: dateBits[2],
+        month: zeroPad(parseInt(dateBits[1])),
+        day: zeroPad(parseInt(dateBits[0])),
+        hour:
+          amPmBits.toLowerCase() === 'am'
+            ? zeroPad(parseInt(timeBits[0]))
+            : zeroPad(parseInt(timeBits[0]) + 12),
+        minute: zeroPad(parseInt(timeBits[1])),
+        second: zeroPad(parseInt(timeBits[2])),
+        extension: extension,
       };
     },
   },
@@ -126,5 +137,5 @@ interface DateBits {
 }
 
 function dateBitsToString(bits: DateBits): string {
-  return `${bits.year}-${bits.month}-${bits.day}_${bits.hour}.${bits.minute}.${bits.second}`;
+  return `${bits.year}-${bits.month}-${bits.day}_${bits.hour}.${bits.minute}.${bits.second}.${bits.extension}`;
 }
