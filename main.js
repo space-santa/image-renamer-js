@@ -10,8 +10,18 @@ function createWindow() {
     },
     width: 800,
     height: 600,
+    backgroundColor: "#404040",
+    icon: path.join(
+      __dirname,
+      "src",
+      "assets",
+      "GraphicsDesign",
+      "ImageRenamer.png"
+    ),
+    title: "ImageRenamer",
   });
 
+  win.removeMenu();
   win.loadFile(path.join(__dirname, "dist", "image-renamer-js", "index.html"));
 }
 
