@@ -36,6 +36,21 @@ for (const testCase of [
     testString: 'MTGA 12_1_2021 12_03_00 pm.png',
     expected: '2021-01-12_00.03.00.png',
   },
+  {
+    name: 'IMG',
+    testString: 'IMG_20220101_123456.jpg',
+    expected: '2022-01-01_12.34.56.jpg',
+  },
+  {
+    name: 'VID',
+    testString: 'VID_20220101_123456.mp4',
+    expected: '2022-01-01_12.34.56.mp4',
+  },
+  {
+    name: 'long colon seperated string',
+    testString: '2022:01:01 12:34:56.jpg',
+    expected: '2022-01-01_12.34.56.jpg',
+  },
 ]) {
   it(testCase['name'], () => {
     const result = parseDateFromString(testCase['testString']);

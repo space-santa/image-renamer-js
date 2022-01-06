@@ -61,12 +61,12 @@ const patterns = [
     func: (name: string): DateBits => {
       return {
         year: name.substring(0, 4),
-        month: name.substring(6, 7),
-        day: name.substring(9, 10),
-        hour: name.substring(12, 13),
-        minute: name.substring(15, 16),
-        second: name.substring(18, 19),
-        extension: name.substring(21, 23),
+        month: name.substring(5, 7),
+        day: name.substring(8, 10),
+        hour: name.substring(11, 13),
+        minute: name.substring(14, 16),
+        second: name.substring(17, 19),
+        extension: name.substring(20, 23),
       };
     },
   },
@@ -74,13 +74,13 @@ const patterns = [
     pattern: /(IMG|VID)_\d{8}_\d{6}.(jpg|mp4)$/,
     func: (name: string): DateBits => {
       return {
-        year: name.substring(4, 7),
-        month: name.substring(8, 9),
-        day: name.substring(10, 11),
-        hour: name.substring(13, 14),
-        minute: name.substring(15, 16),
-        second: name.substring(17, 18),
-        extension: name.substring(20, 22),
+        year: name.substring(4, 8),
+        month: name.substring(8, 10),
+        day: name.substring(10, 12),
+        hour: name.substring(13, 15),
+        minute: name.substring(15, 17),
+        second: name.substring(17, 19),
+        extension: name.substring(20, 23),
       };
     },
   },
