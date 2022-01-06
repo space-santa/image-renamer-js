@@ -37,6 +37,10 @@ export class FilesComponent implements OnInit {
     }
   }
 
+  onClear() {
+    this.files = [];
+  }
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -1,8 +1,13 @@
 <div>
   <div>
-    <button (click)="onRename()">⚙</button>
+    <button type="button" class="btn btn-primary" (click)="onClear()">
+      🧹Clear
+    </button>
+    <button type="button" class="btn btn-danger" (click)="onRename()">
+      ⚙ Rename
+    </button>
   </div>
-  <table>
+  <table class="table">
     <th>Current Name</th>
     <th></th>
     <th>New Name</th>
