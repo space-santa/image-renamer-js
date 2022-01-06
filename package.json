@@ -1,16 +1,21 @@
 {
   "name": "image-renamer-js",
   "version": "0.0.0",
+  "description": "Rename supported files to the orig datetime using the EXIF tag or the filename.",
+  "author": "Space Santa",
+  "main": "main.js",
   "license": "Apache-2.0",
   "scripts": {
     "start:electron": "ng build --base-href ./ && electron main.js",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "electron-forge start",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
@@ -26,6 +31,7 @@
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
     "bootstrap": "^5.1.3",
+    "electron-squirrel-startup": "^1.0.0",
     "exifr": "^7.1.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -34,6 +40,11 @@
     "@angular-devkit/build-angular": "~13.1.2",
     "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.0",
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "@space-santa/electron-builder": "^13.1.5",
     "@types/jest": "^27.4.0",
     "@types/node": "^12.20.41",
@@ -59,6 +70,33 @@
         "tsconfig": "<rootDir>/tsconfig.spec.json",
         "stringifyContentPathRegex": "\\.html$"
       }
+    }
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "image_renamer_js"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
     }
   }
 }
