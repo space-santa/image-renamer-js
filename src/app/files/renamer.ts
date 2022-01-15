@@ -85,6 +85,25 @@ const patterns = [
     },
   },
   {
+    pattern: /\d{8}_\d{6}\.(jpg|mp4)$/,
+    func: (name: string): DateBits => {
+      const largeBits = name.split('.');
+      const suffix = largeBits[1];
+      const dateTimeBits = largeBits[0].split('_');
+      const dateBits = dateTimeBits[0];
+      const timeBits = dateTimeBits[1];
+      return {
+        year: dateBits.substring(0, 4),
+        month: dateBits.substring(4, 6),
+        day: dateBits.substring(6, 8),
+        hour: timeBits.substring(0, 2),
+        minute: timeBits.substring(2, 4),
+        second: timeBits.substring(4, 6),
+        extension: suffix,
+      };
+    },
+  },
+  {
     pattern:
       /MTGA \d\d?_\d\d?_\d\d\d\d \d\d?_\d\d?_\d\d? (am|pm|AM|PM).(png|mp4)$/,
     func: (name: string): DateBits => {

@@ -51,6 +51,16 @@ for (const testCase of [
     testString: '2022:01:01 12:34:56.jpg',
     expected: '2022-01-01_12.34.56.jpg',
   },
+  {
+    name: 'datetime with one underscore seperated string',
+    testString: '20220101_123456.jpg',
+    expected: '2022-01-01_12.34.56.jpg',
+  },
+  {
+    name: 'datetime of video with one underscore seperated string',
+    testString: '20220101_123456.mp4',
+    expected: '2022-01-01_12.34.56.mp4',
+  },
 ]) {
   it(testCase['name'], () => {
     const result = parseDateFromString(testCase['testString']);
