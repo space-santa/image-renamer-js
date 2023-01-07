@@ -45,6 +45,7 @@
     "@electron-forge/maker-rpm": "^6.0.4",
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
+    "@space-santa/electron-builder": "^15.0.6",
     "@types/jest": "^29.2.5",
     "@types/node": "^18.11.18",
     "electron": "^22.0.0",
