@@ -83,5 +83,8 @@
       }
     }
   },
-  "defaultProject": "image-renamer-js"
+  "defaultProject": "image-renamer-js",
+  "cli": {
+    "analytics": false
+  }
 }
