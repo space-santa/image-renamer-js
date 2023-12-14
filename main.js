@@ -20,7 +20,7 @@ function createWindow() {
     ),
     title: "ImageRenamer",
   });
-
+  // win.webContents.openDevTools();
   win.removeMenu();
   win.loadFile(path.join(__dirname, "dist", "image-renamer-js", "index.html"));
 }

@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import exifr from 'exifr';
+import { DateTime } from 'luxon';
 
 export function rename(file: any, newName: string) {
   if (newName === 'bad file') {
@@ -99,6 +100,39 @@ const patterns = [
         hour: timeBits.substring(0, 2),
         minute: timeBits.substring(2, 4),
         second: timeBits.substring(4, 6),
+        extension: suffix,
+      };
+    },
+  },
+  {
+    pattern: /\d{8}_\d{9}_iOS\.(MOV|png|jpg|mp4)$/,
+    func: (name: string): DateBits => {
+      const largeBits = name.split('.');
+      const suffix = largeBits[1];
+      const dateTimeBits = largeBits[0].split('_');
+      const dateBits = dateTimeBits[0];
+      const timeBits = dateTimeBits[1];
+      const datePieces = {
+        year: dateBits.substring(0, 4),
+        month: dateBits.substring(4, 6),
+        day: dateBits.substring(6, 8),
+        hour: timeBits.substring(0, 2),
+        minute: timeBits.substring(2, 4),
+        second: timeBits.substring(4, 6),
+      };
+
+      let utcTime = `${datePieces.year}-${datePieces.month}-${datePieces.day}T${datePieces.hour}:${datePieces.minute}:${datePieces.second}Z`;
+      let melbourneTime = DateTime.fromISO(utcTime, { zone: 'utc' }).setZone(
+        'Australia/Melbourne'
+      );
+
+      return {
+        year: melbourneTime.toFormat('yyyy'),
+        month: melbourneTime.toFormat('MM'),
+        day: melbourneTime.toFormat('dd'),
+        hour: melbourneTime.toFormat('HH'),
+        minute: melbourneTime.toFormat('mm'),
+        second: melbourneTime.toFormat('ss'),
         extension: suffix,
       };
     },
