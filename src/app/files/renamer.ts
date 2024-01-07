@@ -15,7 +15,7 @@ export function rename(file: any, newName: string) {
     path.join(dirPath, newName),
     function (error) {
       if (error) {
-        console.log(error);
+        console.log(`fs.rename ERROR: ${error}`);
       }
     }
   );
@@ -39,12 +39,13 @@ function formatDate(date: Date): string {
   const hh = zeroPad(date.getHours());
   const mm = zeroPad(date.getMinutes());
   const ss = zeroPad(date.getSeconds());
+  const ms = zeroPad(date.getMilliseconds(), 3);
 
-  return `${YYYY}-${MM}-${DD}_${hh}.${mm}.${ss}`;
+  return `${YYYY}-${MM}-${DD}_${hh}.${mm}.${ss}.${ms}`;
 }
 
-function zeroPad(value: number): string {
-  return `0${value}`.slice(-2);
+function zeroPad(value: number, sliceSize: number = 2): string {
+  return `00${value}`.slice(-sliceSize);
 }
 
 export function parseDateFromString(name: string): string {
@@ -105,7 +106,7 @@ const patterns = [
     },
   },
   {
-    pattern: /\d{8}_\d{9}_iOS\.(MOV|png|jpg|mp4)$/,
+    pattern: /\d{8}_\d{9}_iOS\.(MOV|png|jpg|mp4|MP4)$/,
     func: (name: string): DateBits => {
       const largeBits = name.split('.');
       const suffix = largeBits[1];
@@ -119,9 +120,10 @@ const patterns = [
         hour: timeBits.substring(0, 2),
         minute: timeBits.substring(2, 4),
         second: timeBits.substring(4, 6),
+        millisecond: timeBits.substring(6, 9),
       };
 
-      let utcTime = `${datePieces.year}-${datePieces.month}-${datePieces.day}T${datePieces.hour}:${datePieces.minute}:${datePieces.second}Z`;
+      let utcTime = `${datePieces.year}-${datePieces.month}-${datePieces.day}T${datePieces.hour}:${datePieces.minute}:${datePieces.second}.${datePieces.millisecond}Z`;
       let melbourneTime = DateTime.fromISO(utcTime, { zone: 'utc' }).setZone(
         'Australia/Melbourne'
       );
@@ -133,6 +135,7 @@ const patterns = [
         hour: melbourneTime.toFormat('HH'),
         minute: melbourneTime.toFormat('mm'),
         second: melbourneTime.toFormat('ss'),
+        millisecond: melbourneTime.toFormat('SSS'),
         extension: suffix,
       };
     },
@@ -193,9 +196,10 @@ interface DateBits {
   hour: string;
   minute: string;
   second: string;
+  millisecond?: string;
   extension: string;
 }
 
 function dateBitsToString(bits: DateBits): string {
-  return `${bits.year}-${bits.month}-${bits.day}_${bits.hour}.${bits.minute}.${bits.second}.${bits.extension}`;
+  return `${bits.year}-${bits.month}-${bits.day}_${bits.hour}.${bits.minute}.${bits.second}.${bits.millisecond}.${bits.extension}`;
 }
